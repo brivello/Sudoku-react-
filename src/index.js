@@ -15,18 +15,25 @@ class Square extends React.Component {
     //console.log(this);
   }
   render() {
+    var className="";
+    if (this.props.isRightBorderSquare==true){
+      className+=" right-border";
+    }
+    if (this.props.isBottomBorderSquare==true){
+      className+=" bottom-border";
+    }
     //console.log(this.props.value);
     if(this.props.value==null){
       return (
   	  <input 
-        className={this.state.className} 
+        className={this.state.className+className} 
         onChange={this.handleChange.bind(this)} 
         value={this.props.InitialValue}>
   	  </input>
       );
     } else {
         return(
-        <div className="puzzle-square" onClick={() => this.props.onClick()}>
+        <div className={"puzzle-square"+className} onClick={() => this.props.onClick()}>
           {this.props.value}
         </div>
         /*(event) => this.props.onClick(event)}>
@@ -99,15 +106,22 @@ class Board extends React.Component {
     child.setState({className:"red-square"})
   }
 	renderSquare(i,j,initialValue) {
+    var isRightBorderSquare=false;
+    var isBottomBorderSquare=false;
+    if (i==2 || i==5){
+      isBottomBorderSquare=true;
+    }
+    if (j==2 || j==5){
+      isRightBorderSquare=true;
+    }
     if (initialValue!==null){
       this.state.squares[i][j]=initialValue;
     }
     return (
       <Square
-        //value={this.state.squares[i][j]}
-        key={i+""+j}
+        isRightBorderSquare={isRightBorderSquare}
+        isBottomBorderSquare={isBottomBorderSquare}
         validChange={this.validChange.bind(this)}
-        ref ={i+""+j}
         value={initialValue}
         onChange={(event,value,child) => this.handleChange(i,j,event.target.value,child)}
         onClick= {() => alert("this is a part of the puzzle")}

@@ -60,6 +60,12 @@ ol, ul {
   text-align: center;
   width: 34px;
 }
+.bottom-border{
+  border-bottom-width: 3px !important;
+}
+.right-border{
+  border-right-width: 3px !important;
+}
 
 .square:focus {
   outline: green;
